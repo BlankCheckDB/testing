@@ -23,7 +23,7 @@ st.markdown("<h1 style='text-align: center;'><span style='color: #AE88E1;'>Blank
 bucket = client.get_bucket(bucket_name)
 blobs = bucket.list_blobs()
 unique_folder_names = sorted(set(os.path.dirname(blob.name) for blob in blobs if blob.name.endswith('.txt')))
-folder_names = {"All Miniseries": "all", **{os.path.basename(folder).replace('_', ' '): folder for folder in unique_folder_names if folder}}
+folder_names = {"All Miniseries": "all", **{os.path.basename(folder)[4:].replace('_', ' '): folder for folder in unique_folder_names if folder}}
 folder_name = st.selectbox("Select a Miniseries:", list(folder_names.keys()))
 
 search_term = st.text_input("Enter search term:", value="", key="search_box", max_chars=None, type="default", help=None, placeholder="e.g. Star Wars")

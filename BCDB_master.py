@@ -107,7 +107,7 @@ if button_clicked:
         matches_dict, YouTube_urls, Soundcloud_urls = search_files(search_term, bucket_name, folder_names[folder_name])
         if matches_dict:
             st.write(f"Search results ({sum(len(lines) for lines in matches_dict.values())}):")
-            for file_path, lines in sorted(matches_dict.items(), key=lambda x: extract_number(x[0])):
+            for file_path, lines in sorted(matches_dict.items(), key=lambda x: (x[0].rsplit('/', 1)[-1], extract_number(x[0]))):
                 file_name = os.path.splitext(os.path.basename(file_path))[0].replace('_', ' ')
                 formatted_file_name = file_name.replace('_', ' ')
                 file_content = client.get_bucket(bucket_name).get_blob(file_path).download_as_text()

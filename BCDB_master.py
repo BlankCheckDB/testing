@@ -15,7 +15,7 @@ client = storage.Client(credentials=credentials)
 bucket_name = 'bcdb_episodes'
 
 st.set_page_config(page_title="Blank Check Database", page_icon=":mag_right:")
-logo_url = "https://storage.googleapis.com/bcdb_episodes/Miniseries/_images/BCDb_logo_apr10.png"
+logo_url = "https://storage.googleapis.com/bcdb_images/BCDb_logo_apr10.png"
 st.markdown(f'<div style="text-align: center;"><img src="{logo_url}" width="300"></div>', unsafe_allow_html=True)
 
 st.markdown("<h1 style='text-align: center;'><span style='color: #AE88E1;'>Blank Check </span><span style='color: #8E3497;'>Database</span></h1>", unsafe_allow_html=True)
@@ -122,15 +122,15 @@ if button_clicked:
                         timecode = convert_timecode(line[:10])
                         YouTube_URL = YouTube_urls[file_path].strip() + "&t=" + str(timecode)
                         Soundcloud_url = Soundcloud_urls[file_path].strip() + "#t=" + str(timecode)
-                        line = line[:10] + line[10:] + f"<br><a href='{YouTube_URL}' target='_blank'><img src='https://storage.googleapis.com/bcdb_episodes/Miniseries/_images/Youtube_logo.png' alt='YouTube' width='30' height='20'></a>&nbsp;<a href='{Soundcloud_url}' target='_blank'><img src='https://storage.googleapis.com/bcdb_episodes/Miniseries/_images/soundcloud_logo.png' alt='SoundCloud' width='20' height='20'></a>"
+                        line = line[:10] + line[10:] + f"<br><a href='{YouTube_URL}' target='_blank'><img src='https://storage.googleapis.com/bcdb_images/Youtube_logo.png' alt='YouTube' width='30' height='20'></a>&nbsp;<a href='{Soundcloud_url}' target='_blank'><img src='https://storage.googleapis.com/bcdb_images/soundcloud_logo.png' alt='SoundCloud' width='20' height='20'></a>"
                     elif file_path in YouTube_urls:
                         timecode = convert_timecode(line[:10])
                         YouTube_URL = YouTube_urls[file_path].strip() + "&t=" + str(timecode)
-                        line = line[:10] + line[10:] + f"<br><a href='{YouTube_URL}' target='_blank'><img src='https://storage.googleapis.com/bcdb_episodes/Miniseries/_images/Youtube_logo.png' alt='YouTube' width='30' height='20'></a>"
+                        line = line[:10] + line[10:] + f"<br><a href='{YouTube_URL}' target='_blank'><img src='https://storage.googleapis.com/bcdb_images/Youtube_logo.png' alt='YouTube' width='30' height='20'></a>"
                     elif file_path in Soundcloud_urls:
                         timecode = convert_timecode(line[:10])
                         Soundcloud_url = Soundcloud_urls[file_path].strip() + "#t=" + str(timecode)
-                        line = line[:10] + line[10:] + f"<br><a href='{Soundcloud_url}' target='_blank'><img src='https://storage.googleapis.com/bcdb_episodes/Miniseries/_images/soundcloud_logo.png' alt='SoundCloud' width='20' height='20'></a>"
+                        line = line[:10] + line[10:] + f"<br><a href='{Soundcloud_url}' target='_blank'><img src='https://storage.googleapis.com/bcdb_images/soundcloud_logo.png' alt='SoundCloud' width='20' height='20'></a>"
                     st.markdown(line, unsafe_allow_html=True)
         else:
             st.write("No bits found.")
@@ -143,5 +143,5 @@ email_link = f'<a href="mailto:{email_address}">{email_address}</a>'
 email_text = "If you would like to help with this project, email here:"
 st.markdown(f'<div style="text-align: center;font-size: 12px;">{email_text} {email_link}</div>', unsafe_allow_html=True)
 
-footer_text = "<a href='https://www.youtube.com/watch?v=MNLTgUZ8do4&t=3928s'>Beta</a> build April 14, 2023"
+footer_text = "<a href='https://www.youtube.com/watch?v=MNLTgUZ8do4&t=3928s'>Beta</a> build April 19, 2023"
 st.write(f'<div style="text-align: center;font-size: 12px;">{footer_text}</div>', unsafe_allow_html=True)

@@ -114,7 +114,10 @@ if button_clicked:
                 file_data = base64.b64encode(file_content.encode('utf-8')).decode('utf-8')
                 download_button = f'<a href="data:text/plain;base64,{file_data}" download="{formatted_file_name}.txt">Download Transcript</a>'
 
-                st.markdown(f"<span style='font-size: 25px; color: #AE88E1; font-weight: bold;'>{formatted_file_name[4:]}:</span><br>{download_button}", unsafe_allow_html=True)
+                public_url = f'https://storage.googleapis.com/{bucket_name}/{file_path}'
+                view_button = f'<a href="{public_url}" target="_blank">View Transcript</a>'
+
+                st.markdown(f"<span style='font-size: 25px; color: #AE88E1; font-weight: bold;'>{formatted_file_name[4:]}:</span><br>{download_button} | {view_button}", unsafe_allow_html=True)
 
                 for line in lines:
                     line = re.sub(f'({re.escape(search_term)})', f"<span style='background-color: {highlight_color}'>\\1</span>", line, flags=re.IGNORECASE)

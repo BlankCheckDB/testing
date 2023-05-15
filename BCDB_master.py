@@ -27,9 +27,15 @@ def download_csv(data_frame, file_name):
 def highlight_term(text, term):
     def replace(match):
         matched_text = match.group(0)
-        return f'<span style="font-weight: bold; color: #AE88E1;">{matched_text}</span>'
+        color = "#D4AF37" if term.lower() == "comedy points" else "#AE88E1"
+        # if the term is 'night eggs', append '🥚' after 'eggs'
+        if term.lower() == 'night eggs' and 'eggs' in matched_text.lower():
+            matched_text = matched_text + ' 🥚'
+        return f'<span style="font-weight: bold; color: {color};">{matched_text}</span>'
 
     return re.sub(rf'\b{re.escape(term)}\b', replace, text, flags=re.IGNORECASE)
+
+
 
 def process_blob(blob, search_term, folder_name):
     matching_rows = defaultdict(list)
@@ -77,7 +83,7 @@ st.markdown("<h1 style='text-align: center;'><span style='color: #AE88E1;'>Blank
 
 bucket_name_mapping = {
     'Main Feed': 'bcdb_episodes',
-    'Patreon (in progress)': 'bcdb_patreon',
+    'Patreon': 'bcdb_patreon',
 }
 display_names = list(bucket_name_mapping.keys())
 selected_display_name = st.selectbox("Select a feed:", display_names)
@@ -124,7 +130,7 @@ if button_clicked:
 
         if results:
             total_results = sum(len(file_results) for file_results in results.values())
-            st.write(f"{total_results} {'result' if total_results == 1 else 'results'} found")
+            st.write(f"({total_results}) {'result' if total_results == 1 else 'results'} found")
 
             sorted_results = sorted(results.items(), key=lambda x: (x[0].rsplit('/', 1)[-1], extract_number(x[0])))
 
@@ -191,13 +197,14 @@ if button_clicked:
         else:
             st.write("No bits found.")
 
-google_form_text = "Not affiliated with the <a href='https://www.blankcheckpod.com'>Blank Check</a> podcast. Bugs or feature request? Fill out this <a href='https://docs.google.com/forms/d/1pxJjxpV_vBE9__YRnlzXOo9cK6mrXgwgmfR2-sd8hds/edit'>form</a>."
+google_form_text = "This buffoonery is not officially sanctioned by the <a href='https://www.blankcheckpod.com'>Blank Check</a> podcast."
 st.markdown(f'<div style="text-align: center; font-size: 12px;">{google_form_text}</div>', unsafe_allow_html=True)
 
-email_address = "blankcheckdb@gmail.com"
-email_link = f'<a href="mailto:{email_address}">{email_address}</a>'
-email_text = "If you would like to help with this project, email here:"
-st.markdown(f'<div style="text-align: center;font-size: 12px;">{email_text} {email_link}</div>', unsafe_allow_html=True)
+twitter_icon_url = "https://storage.googleapis.com/bcdb_images/twitter_logo.png"
+twitter_page_url = "https://twitter.com/blankcheckdb"
 
-footer_text = "<a href='https://www.youtube.com/watch?v=MNLTgUZ8do4&t=3928s'>Beta</a> build May 12, 2023"
+footer_text = "<a href='https://www.youtube.com/watch?v=MNLTgUZ8do4&t=3928s'>Beta</a> build May 15, 2023"
 st.write(f'<div style="text-align: center;font-size: 12px;">{footer_text}</div>', unsafe_allow_html=True)
+
+twitter_icon_link = f'<a href="{twitter_page_url}" target="_blank"><img src="{twitter_icon_url}" width="30"></a>'
+st.markdown(f'<div style="text-align: center;font-size: 12px;">{twitter_icon_link}</div>', unsafe_allow_html=True)
